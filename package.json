@@ -3,6 +3,9 @@
   "version": "1.3.0",
   "private": true,
   "dependencies": {
+    "@aws-amplify/ui-react": "^0.2.32",
+    "amazon-cognito-identity-js": "^4.5.5",
+    "aws-amplify": "^3.3.12",
     "axios": "^0.21.0",
     "axois": "0.0.1-security",
     "bootstrap": "3.3.7",

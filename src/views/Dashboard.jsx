@@ -39,7 +39,6 @@ class Dashboard extends Component {
     }
     return legend;
   }
-
   render() {
     return (
       <div className="content">

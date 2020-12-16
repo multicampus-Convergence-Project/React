@@ -63,6 +63,7 @@
     text-align: center;
 }
 
+
 .footer-dropdown{
 	top: -120px !important;
 }
@@ -71,6 +72,7 @@
 	top: 300px !important;
 }
 
+
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus{
     opacity: 1;
@@ -78,6 +80,7 @@
 
 
 @media (min-width: 992px){
+
     .typo-line{
         padding-left: 140px;
         margin-bottom: 40px;
