@@ -86,7 +86,7 @@ class newSeoul extends Component {
         };
         
         st[0].onclick = function(){
-          $('#test').text(locInfo[index][0]);
+          $('#test').text(locInfo[index][1]);
           $(st.node).attr('fill', '#ff00ff');
         };
 
@@ -111,11 +111,11 @@ class newSeoul extends Component {
   
     return (
       <>
-        {/* <form onSubmit={handleSubmit}> */}
+        <form onSubmit={this.handleSubmit}>
           <button type="submit">
             <div id="test">test</div>
           </button>
-        {/* </form> */}
+        </form>
         <div id="paper"></div>
       </>
     );

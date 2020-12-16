@@ -96,7 +96,7 @@ class Dashboard extends Component {
                   <div className="ct-chart">
                     <ChartistGraph
                       data={dataBar}
-                      type="Bar"
+                      type="Pie"
                       options={optionsBar}
                       responsiveOptions={responsiveBar}
                     />
