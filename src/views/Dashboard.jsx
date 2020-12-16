@@ -5,6 +5,7 @@ import { Grid, Row, Col } from "react-bootstrap";
 import { Card } from "components/Card/Card.jsx";
 import { StatsCard } from "components/StatsCard/StatsCard.jsx";
 import { Tasks } from "components/Tasks/Tasks.jsx";
+
 import {
   dataPie,
   legendPie,
@@ -17,6 +18,7 @@ import {
   responsiveBar,
   legendBar
 } from "variables/Variables.jsx";
+
 import NewSeoul from "components/seoulMap/newSeoul";
 import MapContainer from "components/specificMap/MapContainer";
 
@@ -88,8 +90,8 @@ class Dashboard extends Component {
             <Col md={6}>
               <Card
                 id="chartActivity"
-                title="2014 Sales"
-                category="All products including Taxes"
+                title="따릉이 이용률 Top10"
+                category="해당 지역 이름 보여주기"
                 stats="Data information certified"
                 statsIcon="fa fa-check"
                 content={

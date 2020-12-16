@@ -26,7 +26,7 @@ const MapContainer = (props) => {
         .catch((e) => {
           console.error(e);
         });
-    }
+    };
     loadlocation();
   }, []);
 
@@ -35,7 +35,7 @@ const MapContainer = (props) => {
     const container = document.getElementById('myMap');
     const options = {
       //지도를 생성할 때 필요한 기본 옵션
-      center: new kakao.maps.LatLng(37.53564880, 126.96362927), //지도의 중심좌표
+      center: new kakao.maps.LatLng(37.5356488, 126.96362927), //지도의 중심좌표
       level: 8,
     };
 
@@ -141,6 +141,9 @@ const MapContainer = (props) => {
   console.log("selectedLoc :", selectedLocation);
   console.log("stateName :", stateName);
 
+  console.log('MapContainer:', location);
+  console.log('selectedLoc :', selectedLocation);
+  console.log('stateName :', stateName, props.stateName);
 
   return (
     <>
