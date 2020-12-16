@@ -10,9 +10,8 @@ const { kakao } = window;
 
 const MapContainer = (props) => {
   const [location, setLoc] = useState([]);
-  const [selectedLocation, setSelectedLoc] = useState([]);
-  const [stateName, setStateName] = useState('mapo');
-
+  const [stateData, setStateData] = useState(['null', 'null', 37.5356488, 126.96362927]);
+  
   useEffect(() => {
     const loadlocation = async () => {
       axios
@@ -21,7 +20,6 @@ const MapContainer = (props) => {
         )
         .then((data) => {
           setLoc(data.data);
-          // setSelectedLoc(data.data);
         })
         .catch((e) => {
           console.error(e);
@@ -48,14 +46,14 @@ const MapContainer = (props) => {
     const customDisplayMarker = () => {
       console.log("customDisplayMarker");
 
+      // // 지도 중심좌표를 접속위치로 변경합니다
+      map.setCenter(new kakao.maps.LatLng(stateData[2],stateData[3]));
+
       for (var i = 0; i < location.length; i++) {
-        if (location[i].state == stateName) {
+        if (location[i].state == stateData[0]) {
           makeMarker(location[i]);
         }
       }
-
-      // // 지도 중심좌표를 접속위치로 변경합니다
-      // map.setCenter(new kakao.maps.LatLng(selectedLocation[0].stationLatitude, selectedLocation[0].stationLongitude));
 
       function makeMarker(selectedLocation) {
         // 마커 이미지의 이미지 크기 입니다
@@ -129,21 +127,16 @@ const MapContainer = (props) => {
     }
 
     customDisplayMarker();
-  }, [stateName]);
+  }, [stateData]);
 
 
   const handleSetState = function (state) {
-    alert(state + "가 선택되었습니다.")
-    setStateName(state);
+    setStateData(state.split(","));
+    alert(state.split(",")[0] + "가 선택되었습니다.")
   };
 
   console.log("MapContainer:", location);
-  console.log("selectedLoc :", selectedLocation);
-  console.log("stateName :", stateName);
-
-  console.log('MapContainer:', location);
-  console.log('selectedLoc :', selectedLocation);
-  console.log('stateName :', stateName, props.stateName);
+  console.log("stateData :", stateData);
 
   return (
     <>
@@ -158,7 +151,7 @@ const MapContainer = (props) => {
             <div>
               <div id="myMap" style={{
                 width: '960px',
-                height: '400px'
+                height: '430px'
               }}
               ></div>
             </div>
@@ -173,7 +166,7 @@ const MapContainer = (props) => {
           category="24 Hours performance"
           stats="Updated 3 minutes ago"
           content={
-            <NewSeoul stateName={stateName} submit={handleSetState}></NewSeoul>
+            <NewSeoul submit={handleSetState}></NewSeoul>
           }>
         </Card>
       </Col>

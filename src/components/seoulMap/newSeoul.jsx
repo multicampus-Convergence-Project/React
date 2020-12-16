@@ -128,17 +128,27 @@ class newSeoul extends Component {
       (function (st, state, index) {
         st[0].style.cursor = 'pointer';
         st[0].onmouseover = function () {
-          $(st.node).attr('fill', '#000000');
+          $(st.node).attr('fill', '#ffef00');
           $(st.node).attr('stroke', '#000000');
         };
         
         st[0].onclick = function(){
-          $('#test').text(locInfo[index][1]);
-          $(st.node).attr('fill', '#ff00ff');
+          $('#stateDiv').text(locInfo[index][0]);
+          $('#stateSub').text("보관소 보러가기");
+          $('#stateData').text(locInfo[index]);
+          if(current !=null){
+            $(current.node).attr('fill', '#ffc400');
+          }
+          current = st;
+          $(st.node).attr('fill', '#ff4500');
         };
 
         st[0].onmouseout = function () {
-          $(st.node).attr('fill', '#ffc400');
+          if($('#stateDiv').text() == locInfo[index][0]){
+            $(st.node).attr('fill', '#ff4500');
+          }else{
+            $(st.node).attr('fill', '#ffc400');
+          }
           $(st.node).attr('stroke', '#000000');
         };
       })(aus[state], state, index);
@@ -151,7 +161,7 @@ class newSeoul extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.submit($('#test').text());
+    this.props.submit($('#stateData').text());
   };
 
   render() {
@@ -159,8 +169,10 @@ class newSeoul extends Component {
       <>
         <form onSubmit={this.handleSubmit}>
           <button type="submit">
-            <div id="test">test</div>
+            <div id="stateDiv">해당 구역을</div>
+            <div id="stateSub">선택해주세요</div>
           </button>
+          <div id="stateData" hidden="true"></div>
         </form>
         <div id="paper"></div>
       </>
