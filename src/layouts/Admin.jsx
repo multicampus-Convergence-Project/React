@@ -13,6 +13,12 @@ import routes from 'routes.js';
 import image from 'assets/img/sidebar-3.jpg';
 import Login from 'components/Authentication/Login';
 
+import Amplify from 'aws-amplify';
+import { AmplifyAuthenticator, AmplifySignIn } from '@aws-amplify/ui-react';
+import Userpool from '../components/Authentication/Userpool';
+
+Amplify.configure(Userpool);
+
 class Admin extends Component {
   constructor(props) {
     super(props);
@@ -154,25 +160,39 @@ class Admin extends Component {
   render() {
     return (
       <>
-        <div className="wrapper">
-          <NotificationSystem ref="notificationSystem" style={style} />
-          {/* <Sidebar
+        <AmplifyAuthenticator>
+          <AmplifySignIn
+            slot="sign-in"
+            headerText="따릉이 Sign In"
+            usernameAlias="email"
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+          >
+            <div slot="secondary-footer-content"></div>
+          </AmplifySignIn>
+          <div className="wrapper">
+            <NotificationSystem ref="notificationSystem" style={style} />
+            {/* <Sidebar
             {...this.props}
             routes={routes}
             image={this.state.image}
             color={this.state.color}
             hasImage={this.state.hasImage}
           /> */}
-          <div ref="mainPanel">
-            <AdminNavbar
-              {...this.props}
-              brandText={this.getBrandText(this.props.location.pathname)}
-            />
 
-            <Switch>{this.getRoutes(routes)}</Switch>
-            <Footer />
+            <div ref="mainPanel">
+              <AdminNavbar
+                {...this.props}
+                brandText={this.getBrandText(this.props.location.pathname)}
+              />
+
+              <Switch>{this.getRoutes(routes)}</Switch>
+              <Footer />
+            </div>
           </div>
-        </div>
+        </AmplifyAuthenticator>
       </>
     );
   }
