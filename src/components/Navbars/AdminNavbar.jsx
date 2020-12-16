@@ -1,4 +1,3 @@
-
 import Login from 'components/Authentication/Login.jsx';
 import React, { Component } from 'react';
 import { Navbar } from 'react-bootstrap';
@@ -10,22 +9,22 @@ class Header extends Component {
     super(props);
     this.mobileSidebarToggle = this.mobileSidebarToggle.bind(this);
     this.state = {
-      sidebarExists: false
+      sidebarExists: false,
     };
   }
   mobileSidebarToggle(e) {
     if (this.state.sidebarExists === false) {
       this.setState({
-        sidebarExists: true
+        sidebarExists: true,
       });
     }
     e.preventDefault();
-    document.documentElement.classList.toggle("nav-open");
-    var node = document.createElement("div");
-    node.id = "bodyClick";
-    node.onclick = function() {
+    document.documentElement.classList.toggle('nav-open');
+    var node = document.createElement('div');
+    node.id = 'bodyClick';
+    node.onclick = function () {
       this.parentElement.removeChild(this);
-      document.documentElement.classList.toggle("nav-open");
+      document.documentElement.classList.toggle('nav-open');
     };
     document.body.appendChild(node);
   }
@@ -34,7 +33,7 @@ class Header extends Component {
       <Navbar fluid>
         <Navbar.Header>
           <Navbar.Brand>
-            <a href="#pablo">ChasoBicycle</a>
+            <a href="#pablo">ChaosBicycle</a>
           </Navbar.Brand>
           {/* <Navbar.Toggle onClick={this.mobileSidebarToggle} /> */}
         </Navbar.Header>

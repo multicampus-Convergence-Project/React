@@ -1,13 +1,12 @@
+import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import NotificationSystem from 'react-notification-system';
 
-import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
-import NotificationSystem from "react-notification-system";
+import AdminNavbar from 'components/Navbars/AdminNavbar';
+import Footer from 'components/Footer/Footer';
+import { style } from 'variables/Variables.jsx';
 
-import AdminNavbar from "components/Navbars/AdminNavbar";
-import Footer from "components/Footer/Footer";
-import { style } from "variables/Variables.jsx";
-
-import routes from "routes.js";
+import routes from 'routes.js';
 
 import image from 'assets/img/sidebar-3.jpg';
 import Login from 'components/Authentication/Login';
@@ -15,6 +14,7 @@ import Login from 'components/Authentication/Login';
 import Amplify from 'aws-amplify';
 import { AmplifyAuthenticator, AmplifySignIn } from '@aws-amplify/ui-react';
 import Userpool from '../components/Authentication/Userpool';
+import UseTopTen from 'components/UseTopTen/UseTopTen';
 
 Amplify.configure(Userpool);
 
@@ -81,7 +81,7 @@ class Admin extends Component {
       }
     });
   };
-  getBrandText = path => {
+  getBrandText = (path) => {
     for (let i = 0; i < routes.length; i++) {
       if (
         this.props.location.pathname.indexOf(
@@ -191,6 +191,7 @@ class Admin extends Component {
               <Footer />
             </div>
           </div>
+          {/* <UseTopTen></UseTopTen> */}
         </AmplifyAuthenticator>
       </>
     );
