@@ -2,44 +2,44 @@ import React, { Component } from 'react';
 import CanvasJSReact from '../assets/canvas/canvasjs.react';
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-class ChartWithIndexLabel extends Component {
+class ColumnChart extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      options: [],
+    };
+  }
+
   render() {
+    let optionsArr = [];
+    const setOptions = () => {
+      for(let i=0;i<this.props.location.length;i++){
+        var temp = {
+          label: this.props.location[i].stationName,
+          y: this.props.location[i].shared
+        };
+        optionsArr.push(temp);
+      }
+    }
+
+    console.log('ColumnChart ', this.props.location);
+    console.log('stateName:',this.props.stateName);
+    setOptions();
+
     const options = {
       animationEnabled: true,
-      exportEnabled: true,
-      theme: 'light2', //"light1", "dark1", "dark2"
-      title: {
-        text:
-          'If you press the button next to it, you can save and print the photo.',
-      },
       data: [
         {
-          type: 'column', //change type to bar, line, area, pie, etc
-          //indexLabel: "{y}", //Shows y value on all Data Points
-          indexLabelFontColor: '#5A5757',
-          indexLabelPlacement: 'outside',
-          dataPoints: [
-            { x: 10, y: 71 },
-            { x: 20, y: 55 },
-            { x: 30, y: 50 },
-            { x: 40, y: 65 },
-            { x: 50, y: 71 },
-            { x: 60, y: 68 },
-            { x: 70, y: 38 },
-            { x: 80, y: 92, indexLabel: 'Highest' },
-            { x: 90, y: 54 },
-            { x: 100, y: 60 },
-            { x: 110, y: 21 },
-            { x: 120, y: 49 },
-            { x: 130, y: 36 },
-          ],
+          // Change type to "doughnut", "line", "splineArea", etc.
+          type: 'column',
+          dataPoints: optionsArr,
         },
       ],
     };
 
     return (
-      <div className="ChartWithIndexLabel">
-        <h2 style={{ textAlign: 'center' }}>해당지역 이름 보여주기</h2>
+      <div>
+        <h2 style={{ textAlign: 'center' }}>클릭한 지역 보여주기</h2>
         <CanvasJSChart
           options={options}
           /* onRef={ref => this.chart = ref} */
@@ -50,4 +50,4 @@ class ChartWithIndexLabel extends Component {
   }
 }
 
-export default ChartWithIndexLabel;
+export default ColumnChart;
