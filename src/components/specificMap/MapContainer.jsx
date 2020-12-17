@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from "axios";
 import { Grid, Row, Col } from "react-bootstrap";
 import { Card } from "components/Card/Card.jsx";
 import NewSeoul from "components/seoulMap/newSeoul";
@@ -9,24 +8,23 @@ import 'components/specificMap/MapContainer.scss';
 const { kakao } = window;
 
 const MapContainer = (props) => {
-  const [location, setLoc] = useState([]);
   const [stateData, setStateData] = useState(['null', 'null', 37.5356488, 126.96362927]);
   
-  useEffect(() => {
-    const loadlocation = async () => {
-      axios
-        .get(
-          'https://yfjpq3vo26.execute-api.us-east-1.amazonaws.com/dev/location'
-        )
-        .then((data) => {
-          setLoc(data.data);
-        })
-        .catch((e) => {
-          console.error(e);
-        });
-    };
-    loadlocation();
-  }, []);
+  // useEffect(() => {
+  //   const loadlocation = async () => {
+  //     axios
+  //       .get(
+  //         'https://yfjpq3vo26.execute-api.us-east-1.amazonaws.com/dev/location'
+  //       )
+  //       .then((data) => {
+  //         setLoc(data.data);
+  //       })
+  //       .catch((e) => {
+  //         console.error(e);
+  //       });
+  //   };
+  //   loadlocation();
+  // }, []);
 
   useEffect(() => {
     let infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
@@ -40,7 +38,9 @@ const MapContainer = (props) => {
     const map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
 
     // 마커 이미지의 이미지 주소입니다
-    var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+    var imageSrcYellow = "https://user-images.githubusercontent.com/69428620/102439510-bbb2e180-4061-11eb-8d58-b40ece0073b3.png";
+    var imageSrcRed = 'https://user-images.githubusercontent.com/69428620/102439516-bd7ca500-4061-11eb-95db-75aa538f6a67.png';
+    var imageSrcGreen = 'https://user-images.githubusercontent.com/69428620/102439506-bb1a4b00-4061-11eb-8a01-301a1c595192.png';
 
     // 지도에 마커와 인포윈도우를 표시하는 함수
     const customDisplayMarker = () => {
@@ -49,9 +49,9 @@ const MapContainer = (props) => {
       // // 지도 중심좌표를 접속위치로 변경합니다
       map.setCenter(new kakao.maps.LatLng(stateData[2],stateData[3]));
 
-      for (var i = 0; i < location.length; i++) {
-        if (location[i].state == stateData[0]) {
-          makeMarker(location[i]);
+      for (var i = 0; i < props.location.length; i++) {
+        if (props.location[i].state == stateData[0]) {
+          makeMarker(props.location[i]);
         }
       }
 
@@ -60,39 +60,63 @@ const MapContainer = (props) => {
         var imageSize = new kakao.maps.Size(24, 35);
 
         // 마커 이미지를 생성합니다    
-        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-
+        var markerImageYellow = new kakao.maps.MarkerImage(imageSrcYellow, imageSize);
+        var markerImageRed = new kakao.maps.MarkerImage(imageSrcRed, imageSize);
+        var markerImageGreen = new kakao.maps.MarkerImage(imageSrcGreen, imageSize);
+        
         var position = new kakao.maps.LatLng(selectedLocation.stationLatitude, selectedLocation.stationLongitude);
-
-        // 마커를 생성합니다
-        var marker = new kakao.maps.Marker({
-          map: map, // 마커를 표시할 지도
-          position: position, // 마커를 표시할 위치
-          title: selectedLocation.stationId, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-          clickable: true
-        });
 
         // 커스텀 오버레이에 표시할 컨텐츠 입니다
         // 커스텀 오버레이는 아래와 같이 사용자가 자유롭게 컨텐츠를 구성하고 이벤트를 제어할 수 있기 때문에
         // 별도의 이벤트 메소드를 제공하지 않습니다 
         var content = 
-          '<div class="wrap">' +
-          '    <div class="info">' +
-          '        <div class="title">' +
-                    selectedLocation.stationId+"("+selectedLocation.state+")"+
-          '        </div>' +
-          '        <div class="body">' +
-          '            <div class="img">' +
-          '                <img src="https://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70" alt="파이그래프">' +
-          '           </div>' +
-          '            <div class="desc">' +
-          '                <div class="ellipsis">현재 거치율이라던가</div>' +
-          '                <div class="jibun ellipsis">필요한 자전거대수라던가</div>' +
-          '                <div>그외 정보들</div>' +
-          '            </div>' +
-          '        </div>' +
-          '    </div>' +
-          '</div>';
+        '<div class="wrap">' +
+        '    <div class="info">' +
+        '        <div class="title">' +
+                  selectedLocation.stationName+
+        '        </div>' +
+        '        <div class="body">' +
+        '            <div class="img">' +
+        '                <img src="#" width="73" height="70" alt="파이그래프">' +
+        '           </div>' +
+        '            <div class="desc">' +
+        '                <div class="ellipsis">현재 사용가능:'+selectedLocation.parkingBikeTotCnt+'대/'+selectedLocation.rackTotCnt+'대</div>' +
+        '                <div class="jibun ellipsis">거치율: '+selectedLocation.shared+'(%)</div>' +
+        '                <div>StationId: '+selectedLocation.stationId+'</div>' +
+        '            </div>' +
+        '        </div>' +
+        '    </div>' +
+        '</div>';
+
+        if(selectedLocation.shared >100){
+          // 마커를 생성합니다
+          var marker = new kakao.maps.Marker({
+            map: map, // 마커를 표시할 지도
+            position: position, // 마커를 표시할 위치
+            title: selectedLocation.stationName, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+            image:markerImageYellow,
+            clickable: true
+          });
+        }else if(selectedLocation.shared < 50){
+          // 마커를 생성합니다
+          var marker = new kakao.maps.Marker({
+            map: map, // 마커를 표시할 지도
+            position: position, // 마커를 표시할 위치
+            title: selectedLocation.stationName, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+            image:markerImageRed,
+            clickable: true
+          });
+        }else{
+          // 마커를 생성합니다
+          var marker = new kakao.maps.Marker({
+            map: map, // 마커를 표시할 지도
+            position: position, // 마커를 표시할 위치
+            title: selectedLocation.stationName, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+            image: markerImageGreen,
+            clickable: true
+          });
+        }
+
 
         var overlay = new kakao.maps.CustomOverlay({
           content: content,
@@ -135,7 +159,7 @@ const MapContainer = (props) => {
     alert(state.split(",")[0] + "가 선택되었습니다.")
   };
 
-  console.log("MapContainer:", location);
+  console.log("MapContainer:", props.location);
   console.log("stateData :", stateData);
 
   return (
