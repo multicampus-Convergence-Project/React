@@ -172,7 +172,7 @@ class newSeoul extends Component {
             <div id="stateDiv">해당 구역을</div>
             <div id="stateSub">선택해주세요</div>
           </button>
-          <div id="stateData" hidden="true"></div>
+          <div id="stateData" hidden={true}></div>
         </form>
         <div id="paper"></div>
       </>

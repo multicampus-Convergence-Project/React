@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
-
+import axios from "axios";
 import { Card } from 'components/Card/Card.jsx';
 import { StatsCard } from 'components/StatsCard/StatsCard.jsx';
 import { Tasks } from 'components/Tasks/Tasks.jsx';
@@ -12,10 +12,24 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      location: [],
       stateName: '',
       fixedClasses: 'dropdown show-dropdown open',
     };
   }
+
+  componentDidMount() {
+    this._dbTest();
+  }
+  apiEndpoint =
+      "https://yfjpq3vo26.execute-api.us-east-1.amazonaws.com/dev/location";
+  _dbTest = async () => {
+      await axios.get(this.apiEndpoint).then((res) => {
+          // const location = res.data;
+          // dataAll = res.data;
+          this.setState({ location: res.data });
+      });
+  };
 
   createLegend(json) {
     var legend = [];
@@ -28,6 +42,7 @@ class Dashboard extends Component {
     return legend;
   }
   render() {
+    console.log("Dashboard:", this.state.location);
     return (
       <div className="content">
         <Grid fluid>
@@ -70,7 +85,7 @@ class Dashboard extends Component {
             </Col>
           </Row>
           <Row>
-            <MapContainer></MapContainer>
+            <MapContainer location={this.state.location}></MapContainer>
           </Row>
           <Row>
             <Col md={6}>
