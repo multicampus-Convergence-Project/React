@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Grid, Row, Col, Table } from 'react-bootstrap';
 import axios from "axios";
 import { Card } from 'components/Card/Card.jsx';
 import { StatsCard } from 'components/StatsCard/StatsCard.jsx';
-import { Tasks } from 'components/Tasks/Tasks.jsx';
 import NewSeoul from "components/seoulMap/newSeoul";
-
 import MapContainer from 'components/specificMap/MapContainer';
-import ChartWithIndexLabel from './Indexlabel';
+import ChartWithIndexLabel from 'views/Indexlabel';
+import SnsTable from 'views/TableList';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -35,17 +34,6 @@ class Dashboard extends Component {
       this.setState({ location2: res.data.slice(0, 10) });
     });
   };
-
-  createLegend(json) {
-    var legend = [];
-    for (var i = 0; i < json['names'].length; i++) {
-      var type = 'fa fa-circle text-' + json['types'][i];
-      legend.push(<i className={type} key={i} />);
-      legend.push(' ');
-      legend.push(json['names'][i]);
-    }
-    return legend;
-  }
 
   handleSetState = (name)=> {
     this.setState({
@@ -137,17 +125,13 @@ class Dashboard extends Component {
             </Col>
 
             <Col md={6}>
-              <Card
-                title="Tasks"
-                category="Backend development"
-                stats="Updated 3 minutes ago"
-                statsIcon="fa fa-history"
+            <Card
+                title="따릉이 사고 알림 서비스 현황"
+                category="따릉이 충격량 감지 시 SNS 문자 알림 서비스 제공"
+                ctTableFullWidth
+                ctTableResponsive
                 content={
-                  <div className="table-full-width">
-                    <table className="table">
-                      <Tasks />
-                    </table>
-                  </div>
+                  <SnsTable stateData={this.state.stateData} location={this.state.location2}></SnsTable>
                 }
               />
             </Col>
