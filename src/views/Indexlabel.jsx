@@ -3,30 +3,42 @@ import CanvasJSReact from '../assets/canvas/canvasjs.react';
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class ColumnChart extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      options: [],
+    };
+  }
   render() {
+    let optionsArr = [];
+    const setOptions = () => {
+      for(let i=0;i<this.props.location.length;i++){
+        var temp = {
+          label: this.props.location[i].stationName,
+          y: this.props.location[i].shared
+        };
+        optionsArr.push(temp);
+      }
+    }
+
+    console.log('ColumnChart ', this.props.location);
+    console.log('stateName:',this.props.stateName);
+    setOptions();
+
     const options = {
-      title: {
-        text: 'Basic Column Chart',
-      },
       animationEnabled: true,
       data: [
         {
           // Change type to "doughnut", "line", "splineArea", etc.
           type: 'column',
-          dataPoints: [
-            { label: 'Apple', y: 10 },
-            { label: 'Orange', y: 15 },
-            { label: 'Banana', y: 25 },
-            { label: 'Mango', y: 30 },
-            { label: 'Grape', y: 28 },
-          ],
+          dataPoints: optionsArr,
         },
       ],
     };
 
     return (
       <div>
-        <h1>React Column Chart</h1>
+        <h2 style={{ textAlign: 'center' }}>클릭한 지역 보여주기</h2>
         <CanvasJSChart
           options={options}
           /* onRef={ref => this.chart = ref} */

@@ -1,99 +1,69 @@
-/*!
-
-=========================================================
-* Light Bootstrap Dashboard React - v1.3.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/light-bootstrap-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-import React, { Component } from "react";
+import React, { useEffect,useState } from "react";
 import { Grid, Row, Col, Table } from "react-bootstrap";
+import {getAddress} from 'views/api';
+import axios from "axios";
 
-import Card from "components/Card/Card.jsx";
-import { thArray, tdArray } from "variables/Variables.jsx";
+let apiEndpoint =
+"https://sv6eie9w7a.execute-api.us-east-1.amazonaws.com/dev/rental-office";
 
-class TableList extends Component {
-  render() {
-    return (
-      <div className="content">
-        <Grid fluid>
-          <Row>
-            <Col md={12}>
-              <Card
-                title="Striped Table with Hover"
-                category="Here is a subtitle for this table"
-                ctTableFullWidth
-                ctTableResponsive
-                content={
-                  <Table striped hover>
-                    <thead>
-                      <tr>
-                        {thArray.map((prop, key) => {
-                          return <th key={key}>{prop}</th>;
-                        })}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {tdArray.map((prop, key) => {
-                        return (
-                          <tr key={key}>
-                            {prop.map((prop, key) => {
-                              return <td key={key}>{prop}</td>;
-                            })}
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </Table>
-                }
-              />
-            </Col>
+let tempShock = [];
 
-            <Col md={12}>
-              <Card
-                plain
-                title="Striped Table with Hover"
-                category="Here is a subtitle for this table"
-                ctTableFullWidth
-                ctTableResponsive
-                content={
-                  <Table hover>
-                    <thead>
-                      <tr>
-                        {thArray.map((prop, key) => {
-                          return <th key={key}>{prop}</th>;
-                        })}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {tdArray.map((prop, key) => {
-                        return (
-                          <tr key={key}>
-                            {prop.map((prop, key) => {
-                              return <td key={key}>{prop}</td>;
-                            })}
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </Table>
-                }
-              />
-            </Col>
-          </Row>
-        </Grid>
-      </div>
-    );
+const TableList = props => {
+  const [shock,setShock] = useState(["12/17/2020",1,37.54956055,126.90575409,500]);
+  const [addressShock,setAddressShock] = useState('');
+
+  useEffect(() => {
+
+    const getShockData = () => {
+      axios.get(apiEndpoint).then((res) => {
+      setShock(res.data);
+      console.log("getShockData:",res.data);
+      getAddressHttpHandler(res.data);
+    })
+    getAddressHttpHandler(shock);
   }
-}
+  
+    const getAddressHttpHandler = async (shock) => {
+      console.log("shock length: ",shock.length);
+      for(let i=0;i<shock.length;i++){
+        // paramter 설정
+        const params = {
+          x: shock[i].longitude,
+          y: shock[i].latitude
+        };
+        const { data } = await getAddress(params); // api 호출
+        const test = data.documents;
+        console.log("getAddressHttpHandler",test[0].address,test[0].address.address_name); // 결과 호출
+        setAddressShock(test[0].address.address_name);
+      }
+    };
+
+    getShockData();
+  }, []);
+
+  console.log("tempShock",tempShock);
+  console.log("shock",shock);
+    return (
+      <Table striped hover>
+        <thead>
+          <th>발생일자</th>
+          <th>충격량</th>
+          <th>주소</th>
+        </thead>
+        <tbody>
+          {shock.map((prop, key) => {
+            return (              
+              <tr>
+              <th>{prop.date}</th>
+              <th>{prop.shock}</th>
+              <td>{addressShock}</td>
+              </tr>
+              )
+          })}
+        </tbody>
+
+      </Table>
+    );
+};
 
 export default TableList;
