@@ -120,7 +120,7 @@ class Dashboard extends Component {
               <Card
                 id="chartActivity"
                 title="따릉이 이용률 Top10"
-                content={<ChartWithIndexLabel stateName={this.state.stateName} location={this.state.location2}></ChartWithIndexLabel>}
+                content={<ChartWithIndexLabel stateName={this.state.stateName} location={this.state.location}></ChartWithIndexLabel>}
               />
             </Col>
 

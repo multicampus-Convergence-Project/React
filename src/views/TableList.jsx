@@ -9,7 +9,7 @@ let apiEndpoint =
 let tempShock = [];
 
 const TableList = props => {
-  const [shock,setShock] = useState(["12/17/2020",1,37.54956055,126.90575409,500]);
+  const [shock,setShock] = useState(["12/17/2020",1,37.509391, 127.055587,500]);
   const [addressShock,setAddressShock] = useState('');
 
   useEffect(() => {

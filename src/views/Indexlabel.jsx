@@ -31,14 +31,14 @@ class ColumnChart extends Component {
         {
           // Change type to "doughnut", "line", "splineArea", etc.
           type: 'column',
-          dataPoints: optionsArr,
+          dataPoints: optionsArr.slice(0, 10),
         },
       ],
     };
 
     return (
       <div>
-        <h2 style={{ textAlign: 'center' }}>클릭한 지역 보여주기</h2>
+        <h2 style={{ textAlign: 'center' }}>{this.props.state}</h2>
         <CanvasJSChart
           options={options}
           /* onRef={ref => this.chart = ref} */
