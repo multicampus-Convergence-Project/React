@@ -165,12 +165,13 @@ class newSeoul extends Component {
   };
 
   render() {
+    console.log($('#stateData').text());
     return (
       <>
         <form onSubmit={this.handleSubmit}>
           <button type="submit">
             <div id="stateDiv">해당 구역을</div>
-            <div id="stateSub">선택해주세요</div>
+            <div id="stateSub">선택해주세요</div> 
           </button>
           <div id="stateData" hidden={true}></div>
         </form>

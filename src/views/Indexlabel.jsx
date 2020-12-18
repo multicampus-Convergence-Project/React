@@ -9,7 +9,6 @@ class ColumnChart extends Component {
       options: [],
     };
   }
-
   render() {
     let optionsArr = [];
     const setOptions = () => {

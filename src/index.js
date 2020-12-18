@@ -9,7 +9,6 @@ import './assets/sass/light-bootstrap-dashboard-react.scss?v=1.3.0';
 import './assets/css/demo.css';
 import './assets/css/pe-icon-7-stroke.css';
 
-import Login from './components/Authentication/Login';
 import AdminLayout from 'layouts/Admin.jsx';
 
 ReactDOM.render(
