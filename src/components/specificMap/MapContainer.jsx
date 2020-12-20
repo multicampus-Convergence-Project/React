@@ -43,7 +43,7 @@ const MapContainer = (props) => {
           '        <div class="title">사고 발생 지역</div>' +
           '        <div class="body">' +
           '            <div class="img">' +
-          '                <img src='+imageSrcAlert+' width="73" height="70" alt="파이그래프">' +
+          '                <img src='+imageSrcAlert+' width="73" height="70" alt="사고발생">' +
           '           </div>' +
           '            <div class="desc">' +
           '                <div class="ellipsis">충격량:' + selectedShock.shock +'</div>' +
@@ -103,7 +103,8 @@ const MapContainer = (props) => {
     var imageSrcYellow = "https://user-images.githubusercontent.com/69428620/102439510-bbb2e180-4061-11eb-8d58-b40ece0073b3.png";
     var imageSrcRed = 'https://user-images.githubusercontent.com/69428620/102439516-bd7ca500-4061-11eb-95db-75aa538f6a67.png';
     var imageSrcGreen = 'https://user-images.githubusercontent.com/69428620/102439506-bb1a4b00-4061-11eb-8a01-301a1c595192.png';
-
+    var imageSrcBike = 'https://user-images.githubusercontent.com/69428620/102715544-8d5f2b80-4319-11eb-9733-c40cf1fb263b.png';
+    
       // // 지도 중심좌표를 접속위치로 변경합니다
       map.setCenter(new kakao.maps.LatLng(props.stateData[2], props.stateData[3]));
 
@@ -135,7 +136,7 @@ const MapContainer = (props) => {
           '        </div>' +
           '        <div class="body">' +
           '            <div class="img">' +
-          '                <img src="#" width="73" height="70" alt="파이그래프">' +
+          '                <img src='+imageSrcBike+' width="73" height="70" alt="파이그래프">' +
           '           </div>' +
           '            <div class="desc">' +
           '                <div class="ellipsis">현재 사용가능:' + selectedLocation.parkingBikeTotCnt + '대/' + selectedLocation.rackTotCnt + '대</div>' +
