@@ -14,7 +14,6 @@ import Login from 'components/Authentication/Login';
 import Amplify from 'aws-amplify';
 import { AmplifyAuthenticator, AmplifySignIn } from '@aws-amplify/ui-react';
 import Userpool from '../components/Authentication/Userpool';
-import UseTopTen from 'components/UseTopTen/UseTopTen';
 
 Amplify.configure(Userpool);
 
