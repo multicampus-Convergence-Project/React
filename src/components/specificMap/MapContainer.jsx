@@ -5,6 +5,7 @@ import 'components/specificMap/MapContainer.scss';
 // const { kakao } = window;
 
 const MapContainer = (props) => {
+
   useEffect(() => {
     const container = document.getElementById('myMap');
     const options = {
@@ -137,14 +138,14 @@ const MapContainer = (props) => {
           '           </div>' +
           '            <div class="desc">' +
           '                <div class="ellipsis">현재 사용가능:' + selectedLocation.parkingBikeTotCnt + '대/' + selectedLocation.rackTotCnt + '대('+selectedLocation.shared+'%)</div>' +
-          '                <div class="jibun ellipsis">사용 가능한 예측 대수: ' + selectedLocation.predict + '(대)</div>' +
-          '                <div>StationId: ' + selectedLocation.stationId + '</div>' +
+          '                <div>사용 가능한 예측 대수: ' + selectedLocation.predict + '(대)</div>' +
+          '                <div  class="jibun ellipsis">StationId: ' + selectedLocation.stationId + '</div>' +
           '            </div>' +
           '        </div>' +
           '    </div>' +
           '</div>';
-
-        if (selectedLocation.shared > 120) {
+          
+        if (selectedLocation.rackTotCnt < selectedLocation.predict) {
           // 마커를 생성합니다
           var marker = new kakao.maps.Marker({
             map: map, // 마커를 표시할 지도
@@ -153,7 +154,7 @@ const MapContainer = (props) => {
             image: markerImageYellow,
             clickable: true
           });
-        } else if (selectedLocation.shared < 70) {
+        } else if (selectedLocation.predict < selectedLocation.rackTotCnt *0.7) {
           // 마커를 생성합니다
           var marker = new kakao.maps.Marker({
             map: map, // 마커를 표시할 지도
