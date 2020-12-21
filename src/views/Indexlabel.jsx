@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import $ from 'jquery';
 import CanvasJSReact from '../assets/canvas/canvasjs.react';
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
+let optionsArr = [];
 class ColumnChart extends Component {
   constructor(props) {
     super(props);
@@ -9,20 +11,26 @@ class ColumnChart extends Component {
       options: [],
     };
   }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({ options: optionsArr[0]['state'] });
+    }, 3000);
+  }
+
   render() {
-    let optionsArr = [];
     const setOptions = () => {
-      for(let i=0;i<this.props.location.length;i++){
+      for (let i = 0; i < this.props.location.length; i++) {
         var temp = {
           label: this.props.location[i].stationName,
-          y: this.props.location[i].shared
+          y: this.props.location[i].shared,
+          state: this.props.location[i].state,
         };
         optionsArr.push(temp);
       }
-    }
+    };
 
     console.log('ColumnChart ', this.props.location);
-    console.log('stateName:',this.props.stateName);
     setOptions();
 
     const options = {
@@ -31,14 +39,17 @@ class ColumnChart extends Component {
         {
           // Change type to "doughnut", "line", "splineArea", etc.
           type: 'column',
-          dataPoints: optionsArr,
+          dataPoints: optionsArr.slice(0, 10),
         },
       ],
     };
 
+    console.log('optionsArr', optionsArr);
     return (
       <div>
-        <h2 style={{ textAlign: 'center' }}>클릭한 지역 보여주기</h2>
+        <h2 id="title" style={{ textAlign: 'center' }}>
+          서울시 전체 데이터{this.state.options}
+        </h2>
         <CanvasJSChart
           options={options}
           /* onRef={ref => this.chart = ref} */

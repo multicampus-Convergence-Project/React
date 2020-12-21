@@ -130,17 +130,17 @@ class Admin extends Component {
       default:
         break;
     }
-    // _notificationSystem.addNotification({
-    //   title: <span data-notify="icon" className="pe-7s-gift" />,
-    //   message: (
-    //     <div>
-    //       <b>따릉이 관리자 페이지</b>에 오신것을 환영합니다!
-    //     </div>
-    //   ),
-    //   level: level,
-    //   position: 'tr',
-    //   autoDismiss: 15,
-    // });
+    _notificationSystem.addNotification({
+      title: <span data-notify="icon" className="pe-7s-gift" />,
+      message: (
+        <div>
+          <b>따릉이 관리자 페이지</b>에 오신것을 환영합니다!
+        </div>
+      ),
+      level: level,
+      position: 'tr',
+      autoDismiss: 15,
+    });
   }
   componentDidUpdate(e) {
     if (
