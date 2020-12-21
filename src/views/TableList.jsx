@@ -1,10 +1,6 @@
 import React, { useEffect,useState } from "react";
-import { Grid, Row, Col, Table } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import {getAddress} from 'views/api';
-import axios from "axios";
-
-let apiEndpoint =
-"https://sv6eie9w7a.execute-api.us-east-1.amazonaws.com/dev/rental-office";
 
 const TableList = props => {
   const [addressShock,setAddressShock] = useState([]);

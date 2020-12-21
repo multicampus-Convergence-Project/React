@@ -1,8 +1,6 @@
-import React, { Component, Fragment, useEffect, useState } from 'react';
+import React, { Component} from 'react';
 import $ from 'jquery';
 import './newSeoul.css';
-import { findDOMNode } from 'react-dom';
-import Dashboard from 'views/Dashboard';
 const { Raphael } = require('react-raphael');
 
 class newSeoul extends Component {
@@ -144,7 +142,7 @@ class newSeoul extends Component {
         };
 
         st[0].onmouseout = function () {
-          if($('#stateDiv').text() == locInfo[index][0]){
+          if($('#stateDiv').text() === locInfo[index][0]){
             $(st.node).attr('fill', '#ff4500');
           }else{
             $(st.node).attr('fill', '#ffc400');

@@ -1,8 +1,5 @@
 /*global kakao */
-import React, { useEffect, useState } from 'react';
-import { Grid, Row, Col } from "react-bootstrap";
-import { Card } from "components/Card/Card.jsx";
-import { Prev } from 'react-bootstrap/lib/Pagination';
+import React, { useEffect } from 'react';
 import 'components/specificMap/MapContainer.scss';
 
 // const { kakao } = window;
@@ -53,7 +50,7 @@ const MapContainer = (props) => {
           '    </div>' +
           '</div>';
 
-      var marker = new kakao.maps.Marker({
+      var shockMarker = new kakao.maps.Marker({
         map: map, // 마커를 표시할 지도
         position: position, // 마커를 표시할 위치
         title: '사고 발생 지역', // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
@@ -61,7 +58,7 @@ const MapContainer = (props) => {
         clickable: true
       });
 
-      marker.setZIndex(1);
+      shockMarker.setZIndex(1);
 
       var overlay = new kakao.maps.CustomOverlay({
         content: shockContent,
@@ -75,8 +72,8 @@ const MapContainer = (props) => {
       // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
       // 이벤트 리스너로는 클로저를 만들어 등록합니다 
       // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-      kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, overlay));
-      kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(overlay));
+      kakao.maps.event.addListener(shockMarker, 'mouseover', makeOverListener(map, shockMarker, overlay));
+      kakao.maps.event.addListener(shockMarker, 'mouseout', makeOutListener(overlay));
 
       // 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
     function makeOverListener(map, marker, overlay) {
@@ -109,7 +106,7 @@ const MapContainer = (props) => {
       map.setCenter(new kakao.maps.LatLng(props.stateData[2], props.stateData[3]));
 
       for (var i = 0; i < props.location.length; i++) {
-        if (props.location[i].state == props.stateData[0]) {
+        if (props.location[i].state === props.stateData[0]) {
           makeMarker(props.location[i]);
         }
       }
@@ -147,7 +144,7 @@ const MapContainer = (props) => {
           '    </div>' +
           '</div>';
 
-        if (selectedLocation.shared > 100) {
+        if (selectedLocation.shared > 120) {
           // 마커를 생성합니다
           var marker = new kakao.maps.Marker({
             map: map, // 마커를 표시할 지도
@@ -156,7 +153,7 @@ const MapContainer = (props) => {
             image: markerImageYellow,
             clickable: true
           });
-        } else if (selectedLocation.shared < 50) {
+        } else if (selectedLocation.shared < 70) {
           // 마커를 생성합니다
           var marker = new kakao.maps.Marker({
             map: map, // 마커를 표시할 지도
@@ -212,7 +209,7 @@ const MapContainer = (props) => {
   
 
     shockMarker();
-    if(props.stateData.length !=0){
+    if(props.stateData.length !== 0){
       customDisplayMarker();
     }
 

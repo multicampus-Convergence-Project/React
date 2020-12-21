@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Row, Col, Table } from 'react-bootstrap';
+import { Grid, Row, Col } from 'react-bootstrap';
 import axios from "axios";
 import { Card } from 'components/Card/Card.jsx';
 import { StatsCard } from 'components/StatsCard/StatsCard.jsx';
@@ -14,9 +14,8 @@ class Dashboard extends Component {
     this.state = {
       stateData:[],
       location: [],
-      location2: [],
       shock:[],
-      stateName: '',
+      stateName: '전체',
       fixedClasses: 'dropdown show-dropdown open',
     };
     this.handleSetState = this.handleSetState.bind(this);
@@ -34,7 +33,6 @@ class Dashboard extends Component {
   locationDb = async () => {
     await axios.get(this.locationApiEndpoint).then((res) => {
       this.setState({ location: res.data });
-      this.setState({ location2: res.data.slice(0, 10) });
     });
   };
   shockDb = async () => {
@@ -125,14 +123,9 @@ class Dashboard extends Component {
             </Col>
           </Row>
           <Row>
-            <Col md={6}>
-              <Card
-                id="chartActivity"
-                title="따릉이 이용률 Top10"
-                content={<ChartWithIndexLabel stateName={this.state.stateName} location={this.state.location}></ChartWithIndexLabel>}
-              />
-            </Col>
-
+            <ChartWithIndexLabel stateName={this.state.stateName} location={this.state.location}></ChartWithIndexLabel>
+          </Row>
+          <Row>
             <Col md={6}>
             <Card
                 title="따릉이 사고 알림 서비스 현황"
