@@ -7,6 +7,7 @@ import NewSeoul from "components/seoulMap/newSeoul";
 import MapContainer from 'components/specificMap/MapContainer';
 import ChartWithIndexLabel from 'views/Indexlabel';
 import SnsTable from 'views/TableList';
+import MultiGraph from 'views/MultiGraph';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -94,7 +95,8 @@ class Dashboard extends Component {
               />
             </Col>
           </Row>
-          <Row>
+          <
+            Row>
             <Col md={8}>
               <Card
                 statsIcon="fa fa-history"
@@ -135,6 +137,17 @@ class Dashboard extends Component {
                 content={
                   <SnsTable shock={this.state.shock}></SnsTable>
                 }
+              />
+            </Col>
+            <Col md={6}>
+              <Card
+                 title="테스트 그래프"
+                 category="여러개 그래프 시각화"
+                 ctTableFullWidth
+                 ctTableResponsive
+                 content={
+                   <MultiGraph></MultiGraph>
+                 }
               />
             </Col>
           </Row>
