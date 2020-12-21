@@ -24,14 +24,14 @@ class ColumnChart extends Component {
         if ((stateName === '전체' || this.props.location[i].state === stateName) && tooMuchOptions.length < 10) {
           var tooMuchTemp = {
             label: this.props.location[i].stationName,
-            y: this.props.location[i].shared,
+            y: this.props.location[i].predict,
           };
           tooMuchOptions.push(tooMuchTemp);
         }
         if ((stateName === '전체' || this.props.location[totalLen - i].state === stateName) && tooLessOptions.length < 10) {
           var tooLessTemp = {
             label: this.props.location[totalLen - i].stationName,
-            y: this.props.location[totalLen - i].shared,
+            y: this.props.location[totalLen - i].predict,
           };
           tooLessOptions.push(tooLessTemp);
         }

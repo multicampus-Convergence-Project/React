@@ -136,8 +136,8 @@ const MapContainer = (props) => {
           '                <img src='+imageSrcBike+' width="73" height="70" alt="파이그래프">' +
           '           </div>' +
           '            <div class="desc">' +
-          '                <div class="ellipsis">현재 사용가능:' + selectedLocation.parkingBikeTotCnt + '대/' + selectedLocation.rackTotCnt + '대</div>' +
-          '                <div class="jibun ellipsis">거치율: ' + selectedLocation.shared + '(%)</div>' +
+          '                <div class="ellipsis">현재 사용가능:' + selectedLocation.parkingBikeTotCnt + '대/' + selectedLocation.rackTotCnt + '대('+selectedLocation.shared+'%)</div>' +
+          '                <div class="jibun ellipsis">사용 가능한 예측 대수: ' + selectedLocation.predict + '(대)</div>' +
           '                <div>StationId: ' + selectedLocation.stationId + '</div>' +
           '            </div>' +
           '        </div>' +
