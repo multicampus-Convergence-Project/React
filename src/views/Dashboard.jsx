@@ -15,6 +15,7 @@ class Dashboard extends Component {
       stateData:[],
       location: [],
       location2: [],
+      shock:[],
       stateName: '',
       fixedClasses: 'dropdown show-dropdown open',
     };
@@ -22,16 +23,23 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    this._dbTest();
+    this.locationDb();
+    this.shockDb();
   }
-  apiEndpoint =
+  locationApiEndpoint =
     "https://yfjpq3vo26.execute-api.us-east-1.amazonaws.com/dev/location";
-  _dbTest = async () => {
-    await axios.get(this.apiEndpoint).then((res) => {
-      // const location = res.data;
-      // dataAll = res.data;
+  shockApiEndpoint =
+    "https://sv6eie9w7a.execute-api.us-east-1.amazonaws.com/dev/rental-office";
+  
+  locationDb = async () => {
+    await axios.get(this.locationApiEndpoint).then((res) => {
       this.setState({ location: res.data });
       this.setState({ location2: res.data.slice(0, 10) });
+    });
+  };
+  shockDb = async () => {
+    await axios.get(this.shockApiEndpoint).then((res) => {
+      this.setState({ shock: res.data });
     });
   };
 
@@ -45,7 +53,8 @@ class Dashboard extends Component {
   };
 
   render() {
-    console.log("Dashboard:", this.state.location);
+    console.log("location:", this.state.location);
+    console.log("shock:", this.state.shock);
     return (
       <div className="content">
         <Grid fluid>
@@ -92,11 +101,11 @@ class Dashboard extends Component {
               <Card
                 statsIcon="fa fa-history"
                 id="secificMap"
-                title="Specific SeoulMap"
+                title="따릉이 자전거 위치 및 현황"
                 category="24 Hours performance"
                 stats="Updated 3 minutes ago"
                 content={
-                  <MapContainer stateData={this.state.stateData} location={this.state.location}></MapContainer>
+                  <MapContainer shock={this.state.shock} stateData={this.state.stateData} location={this.state.location}></MapContainer>
 
                 }
               />
@@ -106,7 +115,7 @@ class Dashboard extends Component {
               <Card
                 statsIcon="fa fa-history"
                 id="seoulMap"
-                title="Seoul Map"
+                title="서울 지도"
                 category="24 Hours performance"
                 stats="Updated 3 minutes ago"
                 content={
@@ -131,7 +140,7 @@ class Dashboard extends Component {
                 ctTableFullWidth
                 ctTableResponsive
                 content={
-                  <SnsTable stateData={this.state.stateData} location={this.state.location2}></SnsTable>
+                  <SnsTable shock={this.state.shock}></SnsTable>
                 }
               />
             </Col>
