@@ -5,9 +5,10 @@ import { Card } from 'components/Card/Card.jsx';
 import { StatsCard } from 'components/StatsCard/StatsCard.jsx';
 import NewSeoul from "components/seoulMap/newSeoul";
 import MapContainer from 'components/specificMap/MapContainer';
-import ChartWithIndexLabel from 'views/Indexlabel';
+import IndexlabelTop from 'views/IndexlabelTop';
+import IndexlabelBottom from 'views/IndexlabelBottom';
 import SnsTable from 'views/TableList';
-import MultiGraph from 'views/MultiGraph';
+
 
 class Dashboard extends Component {
   constructor(props) {
@@ -125,9 +126,13 @@ class Dashboard extends Component {
             </Col>
           </Row>
           <Row>
-            <ChartWithIndexLabel stateName={this.state.stateName} location={this.state.location}></ChartWithIndexLabel>
+            <IndexlabelTop stateName={this.state.stateName} location={this.state.location}></IndexlabelTop>
+            <Col md={4}>
+              <SnsTable shock={this.state.shock}></SnsTable>
+            </Col>
+            <IndexlabelBottom stateName={this.state.stateName} location={this.state.location}></IndexlabelBottom>
           </Row>
-          <Row>
+          {/* <Row>
             <Col md={6}>
             <Card
                 title="따릉이 사고 알림 서비스 현황"
@@ -150,7 +155,7 @@ class Dashboard extends Component {
                  }
               />
             </Col>
-          </Row>
+          </Row> */}
         </Grid>
       </div>
     );
