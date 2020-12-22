@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
+import { Card } from 'components/Card/Card.jsx';
 import { getAddress } from 'views/api';
 
 const TableList = props => {
@@ -38,27 +39,63 @@ const TableList = props => {
   console.log("addressShock", addressShock);
 
   return (
-    <Table striped hover>
-      <thead>
-        <tr>
-          <th>발생일자</th>
-          <th>충격량</th>
-          <th>주소</th>
-        </tr>
-      </thead>
-      <tbody>
-        {props.shock.map((prop, key) => {
-          return (
-            <tr key={key}>
-              <th>{prop.date}</th>
-              <th>{prop.shock}</th>
-              <td>{addressShock[key]}</td>
+    <div>
+      <Card
+        title="따릉이 사고 알림 서비스 현황"
+        category="따릉이 충격량 감지 시 SNS 문자 알림 서비스 제공"
+        ctTableFullWidth
+        ctTableResponsive
+        
+        content={
+          <div>
+            <Table striped hover>
+            <thead>
+              <tr>
+                <th>발생일자</th>
+                <th>충격량</th>
+                <th>주소</th>
+              </tr>
+            </thead>
+            <tbody>
+              {props.shock.map((prop, key) => {
+                return (
+                  <tr key={key}>
+                    <th>{prop.date}</th>
+                    <th>{prop.shock}</th>
+                    <td>{addressShock[key]}</td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </Table>
+          <br></br>
+          <div className='header'>
+          <h4 className="title">도난 자전거 신고 현황</h4>
+          <p className="category">도난 자전거 신고 리스트</p>
+          <br></br>
+          </div>
+          <Table striped hover>
+          <thead>
+            <tr>
+              <th>도난 일자</th>
+              <th>주소</th>
             </tr>
-          )
-        })}
-      </tbody>
-
-    </Table>
+          </thead>
+          <tbody>
+            {props.shock.map((prop, key) => {
+              return (
+                <tr key={key}>
+                  <th>{prop.date}</th>
+                  <td>{addressShock[key]}</td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </Table>
+          </div>
+        }
+      />
+    </div>
   );
 };
 
