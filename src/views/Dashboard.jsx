@@ -24,8 +24,10 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    this.locationDb();
-    this.shockDb();
+    setTimeout(() => {
+      this.locationDb();
+      this.shockDb();
+    }, 3000);
   }
   locationApiEndpoint =
     "https://yfjpq3vo26.execute-api.us-east-1.amazonaws.com/dev/location";

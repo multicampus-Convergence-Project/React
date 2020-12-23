@@ -5,6 +5,7 @@ import { getAddress } from 'views/api';
 
 const TableList = props => {
   const [addressShock, setAddressShock] = useState([]);
+  const [Steal, setSteal] = useState([]);
 
   useEffect(() => {
     //   const getShockData = () => {
@@ -33,7 +34,24 @@ const TableList = props => {
       }
     };
 
+    const getStealHttpHandler = async () => {
+      // console.log("shock length: ", props.shock.length);
+      for (let i = 0; i < props.shock.length; i++) {
+        // paramter 설정
+        const params = {
+          x: props.shock[i].longitude,
+          y: props.shock[i].latitude
+        };
+        const { data } = await getAddress(params); // api 호출
+        const test = data.documents;
+        const realAddress = test[0].address.region_1depth_name+" "+test[0].address.region_2depth_name+" "+test[0].address.region_3depth_name;
+        console.log("getStealHttpHandler", realAddress); // 결과 호출
+        setSteal(Steal => [...Steal, realAddress]);
+      }
+    };
+
     getAddressHttpHandler();
+    getStealHttpHandler();
   }, [props.shock]);
 
   console.log("addressShock", addressShock);
@@ -77,16 +95,16 @@ const TableList = props => {
           <Table striped hover>
           <thead>
             <tr>
-              <th>도난 일자</th>
+              <th>신고일자</th>
               <th>주소</th>
             </tr>
           </thead>
           <tbody>
-            {props.shock.map((prop, key) => {
+            {Steal.map((prop, key) => {
               return (
                 <tr key={key}>
-                  <th>{prop.date}</th>
-                  <td>{addressShock[key]}</td>
+                  <td>12/20/2020</td>	
+                  <td>{Steal[key]}</td>
                 </tr>
               )
             })}
